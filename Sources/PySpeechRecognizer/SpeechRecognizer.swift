@@ -10,7 +10,7 @@ import SwiftUI
 /// A helper for transcribing speech to text using SFSpeechRecognizer and AVAudioEngine.
 public class SpeechRecognizer {
     
-    var py_callback: SpeechRecognizerPyCallback?
+    public var py_callback: PyCallback?
     
     enum RecognizerError: Error {
         case nilRecognizer
