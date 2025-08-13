@@ -7,8 +7,14 @@ import Foundation
 import Speech
 import SwiftUI
 
+
+import PySwiftKit
+import PySwiftObject
+import PySerializing
+import PySwiftWrapper
 /// A helper for transcribing speech to text using SFSpeechRecognizer and AVAudioEngine.
-public class SpeechRecognizer {
+@PyClass
+public final class SpeechRecognizer {
     
     public var py_callback: PyCallback?
     
@@ -39,7 +45,8 @@ public class SpeechRecognizer {
      Initializes a new speech recognizer. If this is the first time you've used the class, it
      requests access to the speech recognizer and the microphone.
      */
-    required init(locale: String) {
+    @PyInit
+    init(locale: String) {
         recognizer = SFSpeechRecognizer(locale: .init(identifier: locale))
         
         //print(SFSpeechRecognizer.supportedLocales().map(\.description))
@@ -63,7 +70,17 @@ public class SpeechRecognizer {
     deinit {
         reset()
     }
-    
+    @PyMethod
+    public func start() {
+        transcribe()
+    }
+    @PyMethod
+    public func stop() {
+        stopTranscribing()
+    }
+}
+
+extension SpeechRecognizer {
     /**
         Begin transcribing audio.
      
@@ -177,14 +194,14 @@ extension AVAudioSession {
 
 
 
-extension SpeechRecognizer: SpeechRecognizer_PyProtocol {
-	public func start() {
-        transcribe()
+
+
+extension SpeechRecognizer {
+    @PyContainer
+    public final class PyCallback {
+        
+        
+        @PyCall
+        func speak(message: String)
     }
-    
-	public func stop() {
-        stopTranscribing()
-    }
-    
-    
 }

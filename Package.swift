@@ -10,8 +10,8 @@ let package = Package(
 		.library(name: "PySpeechRecognizer", targets: ["PySpeechRecognizer"])
 	],
 	dependencies: [
-        .package(url: "https://github.com/PythonSwiftLink/PySwiftKit", from: .init(311, 0, 0)),
-        .package(url: "https://github.com/PythonSwiftLink/SwiftonizePlugin", from: .init(0, 0, 0)),
+        .package(url: "https://github.com/py-swift/PySwiftKit", from: .init(311, 0, 0)),
+        .package(url: "https://github.com/py-swift/PyFileGenerator", from: .init(0, 0, 1)),
 	],
 	targets: [
 		.target(
@@ -19,8 +19,7 @@ let package = Package(
 			dependencies: [
                 //.product(name: "PythonSwiftCore", package: "KivySwiftLink"),
                 .product(name: "SwiftonizeModules", package: "PySwiftKit"),
-			],
-			plugins: [ .plugin(name: "Swiftonize", package: "SwiftonizePlugin") ]
+			]
 		),
 
 	]
